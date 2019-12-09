@@ -1,0 +1,75 @@
+到mysql的bin目录下 .\mysqld -install mysql55
+net start mysql55
+.\mysql -uroot -p
+输入密码
+
+create database bysj default character set utf8 collate utf8_general_ci;
+use bysj;
+create table Degree(
+id bigint not null auto_increment,
+no varchar(255) not null,
+description varchar(255) not null,
+remarks varchar(255),
+primary key(id)
+);
+
+create database RFID default character set utf8 collate utf8_general_ci;
+create table School(
+  id bigint not null auto_increment,
+  description varchar(255) not null,
+  no varchar(255) not null,
+  remarks varchar(255),
+  primary key (id)
+);
+create table Degree(
+  id bigint not null auto_increment,
+  description varchar(255) not null,
+  no varchar(255) not null,
+  remarks varchar(255),
+  primary key (id)
+);
+create table ProfTitle(
+  id bigint not null auto_increment,
+  description varchar(255) not null,
+  no varchar(255) not null,
+  remarks varchar(255),
+  primary key (id)
+);
+
+create table User(
+  id bigint not null auto_increment,
+  username varchar(255) not null,
+  password varchar(255) not null,
+  loginTime TIMESTAMP,
+  teacher_id bigint not null,
+  foreign key(teacher_id) references teacher(id),
+  primary key (id)
+);
+
+create table department(
+	id bigint not null auto_increment,
+	description varchar(255) not null,
+	no varchar(255) not null,
+	remarks varchar(255),
+	school_id bigint not null,
+	foreign key(school_id) references school(id),
+	primary key(id)
+);
+create table Teacher(
+     id  bigint not null auto_increment,
+     name varchar(255) not null,
+     title_id bigint not null,
+     degree_id bigint not null,
+     department_id bigint not null,
+     foreign key(title_id) references ProfTitle(id),
+     foreign key(degree_id) references Degree(id),
+     foreign key(department_id) references Department(id),
+     primary key(id)
+);
+INSERT INTO department(description,no,remarks,school_id) VALUES("信息管理","01","the best",2);
+SELECT * FROM DEPARTMENT;
+DELETE FROM DEPARTMENT WHERE ID = ?
+
+alter table teacher add unique(no);
+alter table teacher add no varchar(255) not null after name;
+
